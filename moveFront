@@ -1,0 +1,25 @@
+d3.selection.prototype.moveToFront = function() {
+  return this.each(function(){
+  this.parentNode.appendChild(this);
+  });
+};
+
+var svg = d3.select("svg");
+
+var data = d3.range(10);
+
+var circles = svg.selectAll("circle")
+    .data(data)
+    .enter()
+    .append("circle")
+    .attr({
+      cx: function(d,i){return d*20+100},
+      cy: 100,
+      r:20,
+      fill:"#aaa",
+      stroke: "#000"
+    })
+    .on("mouseover",function(){
+      var sel = d3.select(this);
+      sel.moveToFront();
+    });
